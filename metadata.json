@@ -1,0 +1,12 @@
+{
+  "name": "KrsiMedha - AI Farmer Assistant",
+  "description": "A multilingual AI assistant for Indian farmers providing crop disease diagnosis, fertilizer recommendations, and market insights.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "AI-powered diagnosis",
+    "Multilingual support",
+    "Image analysis"
+  ]
+}
