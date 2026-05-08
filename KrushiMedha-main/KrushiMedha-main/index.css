@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #2d6a4f;
+  --color-brand-dark-green: #1b4332;
+  --color-brand-earth: #5c715e;
+  --color-brand-leaf: #40916c;
+  --color-brand-sun: #fbbf24;
+  --color-brand-cream: #fdfcf0;
+  --color-brand-ice: #f1f5e9;
+  --color-brand-border: #e2e8ce;
+  --color-sidebar-bg: #f8f9f2;
+}
+
+@layer base {
+  body {
+    @apply bg-[#fdfcf0] text-[#2d3a3a] font-sans;
+  }
+}
+
+.markdown-body p {
+  @apply mb-4 leading-relaxed;
+}
+
+.markdown-body ul {
+  @apply list-disc pl-5 mb-4 space-y-1;
+}
+
+.markdown-body strong {
+  @apply font-bold text-brand-green;
+}
+
+.markdown-body em {
+  @apply italic text-brand-earth;
+}
+
+@media print {
+  /* Hide everything on the page first */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Reset body and hide its background */
+  body, html {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Show only the printable report and its children */
+  #printable-report,
+  #printable-report * {
+    visibility: visible !important;
+  }
+
+  /* Position report at the top left of the printed page */
+  #printable-report {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+    color: black !important;
+    z-index: 9999 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ensure the container of the report doesn't have background colors or filters that hide content */
+  .modal-overlay {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    position: static !important;
+    display: block !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Force color visibility for key elements */
+  .bg-brand-sun {
+    background-color: #fbbf24 !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  /* Force standard color space to avoid oklab errors in html2canvas */
+  #printable-report,
+  #printable-report * {
+    color-scheme: light !important;
+    --tw-ring-color: rgba(0,0,0,0) !important;
+    --tw-shadow: 0 0 #0000 !important;
+    --tw-shadow-colored: 0 0 #0000 !important;
+  }
+}
+
+/* Modal Scroll Fix */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(7 54 38 / 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow-y: scroll; /* Force scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* PDF Export Compatibility - Force HEX/RGB to avoid oklab errors in html2canvas/Tailwind v4 */
+.is-exporting, 
+.is-exporting :root,
+.is-exporting body {
+  /* Attempt to neutralize Tailwind 4 color variables that might use oklch/oklab */
+  --color-brand-green: #2d6a4f !important;
+  --color-brand-dark-green: #1b4332 !important;
+  --color-brand-sun: #fbbf24 !important;
+  --color-brand-cream: #fdfcf0 !important;
+  --color-brand-ice: #f1f5e9 !important;
+  --tw-ring-color: transparent !important;
+  --tw-shadow: none !important;
+}
+
+.is-exporting * {
+  --tw-ring-color: transparent !important;
+  --tw-shadow: none !important;
+  --tw-shadow-colored: none !important;
+  --tw-border-opacity: 1 !important;
+  --tw-bg-opacity: 1 !important;
+  --tw-text-opacity: 1 !important;
+  outline-color: currentColor !important;
+  border-color: currentColor !important;
+  text-decoration-color: currentColor !important;
+  caret-color: currentColor !important;
+  column-rule-color: currentColor !important;
+  scrollbar-color: auto !important;
+}
+
+.is-exporting #printable-report,
+.is-exporting #printable-report * {
+  color: #1b4332 !important; /* Force HEX brand color */
+  background-color: transparent !important; /* Default transparent */
+  background-image: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color-scheme: light !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+.is-exporting #printable-report {
+  background-color: #ffffff !important;
+}
+
+.is-exporting #printable-report .bg-brand-sun {
+  background-color: #fbbf24 !important;
+}
+
+.is-exporting #printable-report .bg-brand-ice\/20 {
+  background-color: #f1f5e9 !important; /* solid fallback */
+}
+
+.is-exporting #printable-report .border-brand-dark-green\/10 {
+  border-color: #e2e8ce !important;
+}
